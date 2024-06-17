@@ -73,7 +73,6 @@ function secondLargest(arr){
        second = num;
      }
    }
-   
    return second;
     
 }
@@ -113,8 +112,8 @@ function findMax (arr) {
      return maxNum;
 }     
 
-const val = quick(arr);
-console.log(val);
+// const val = quick(arr);
+// console.log(val);
 /* 
 const target = binaySearch(val,11);
 console.log(`${target < 0 ? 'not found': target}`);
@@ -124,8 +123,8 @@ console.log(second);
  */
  
  
- const tLar =thirdLargest(arr);
- console.log(tLar)
+//  const tLar =thirdLargest(arr);
+//  console.log(tLar)
  
 /*  const fMax = Math.max(...arr);
  console.log(fMax)
@@ -133,4 +132,49 @@ console.log(second);
  
  const maxNum = findMax(arr);
  console.log(maxNum); */
+
+
+
+
+//  console.log('Start');
+
+// process.nextTick(() => {
+//   console.log('Callback executed');
+// });
+
+// console.log('End');
+
+
+const http = require('http');
+
+function handleRequest(request, response) {
+  // Process the request
+  processRequest(request, response);
+
+  // Schedule some cleanup tasks to be executed after processing the request
+  // process.nextTick(() => {
+  //   cleanupTasks(request);
+  // });
+
+  setTimeout(() => {
+    cleanupTasks(request)
+  },3000);
+
+}
+
+const server = http.createServer(handleRequest);
+
+server.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+function processRequest(request, response) {
+  // Processing logic goes here
+  console.log("processrequest")
+}
+
+function cleanupTasks(request) {
+  // Cleanup tasks go here
+  console.log("cleanup task");
+}
 
