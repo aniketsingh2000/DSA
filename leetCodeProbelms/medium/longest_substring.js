@@ -85,3 +85,68 @@ function longestSubstring(s) {
 const string = 'pwwkew';
 const result = longestSubstring(string);
 console.log(result);  // Output: { length: 3, substring: 'abc' }
+
+
+
+
+// function maxLength(string) {
+//     if (string.length <= 1) {
+//       return 1;
+//     }
+  
+//     let tempObj = {}
+//     let tempArr = [];
+//     let tempstring = '';
+//     for (let i = 0; i < string.length; i++) {
+//       if (!tempObj[string[i]]) {
+//         tempObj[string[i]] = 1;
+//         tempstring += string[i];
+//       } else {
+//         tempObj[string[i]]++;
+//         const ind = tempstring.indexOf(string[i]);
+//         tempArr.push(tempstring);
+//         const prev = tempstring.substring(0, ind + 1);
+//         const leftString = tempstring.substring(ind + 1);
+//         tempstring = leftString;
+//         tempstring += string[i]
+//       }
+//     }
+  
+//     let longestString = tempArr[0];
+  
+//     for (let item of tempArr) {
+//       if (item.length > longestString.length) {
+//         longestString = item;
+//       }
+//     }
+  
+//     return longestString
+//   }
+  
+//   const s = "pwwkew";
+//   console.log(maxLength(s));
+  
+
+
+// function maxLength(string) {
+//     if (string.length <= 1) {
+//       return 1;
+//     }
+  
+//     let tempObj = {}
+//     let start = 0;
+//     let maxLength = 0;
+//     for (let i = 0; i < string.length; i++) {
+//       if (tempObj[string[i]] && tempObj[string[i]] >= start) {
+//         start = tempObj[string[i]] + 1;
+//       }
+//       tempObj[string[i]] = i;
+//       if (i - start + 1 > maxLength) {
+//         maxLength = i - start + 1;
+//       }
+//     }
+//     return maxLength 
+//   }
+  
+//   const string = "pqbrstbuvwvxy";
+//   console.log(maxLength(string));
