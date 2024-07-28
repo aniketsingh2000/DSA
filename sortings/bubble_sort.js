@@ -40,24 +40,51 @@
 
 
 
-function bubbleSort(arr) {
-    const length = arr.length - 1;
+// function bubbleSort(arr) {
+//     const length = arr.length - 1;
 
 
-    for (let i = 0; i < length; i++) {
-        for (let j = 0; j < length; j++) {
-            if (arr[j] > arr[j + 1]) {
-                const temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
+//     for (let i = 0; i < length; i++) {
+//         for (let j = 0; j < length; j++) {
+//             if (arr[j] > arr[j + 1]) {
+//                 const temp = arr[j];
+//                 arr[j] = arr[j + 1];
+//                 arr[j + 1] = temp;
+//             }
+//         }
+//     }
+
+//     return arr;
+// }
+
+
+// const arr = [5,9,16,3,2,7,4];
+// const sortedArr =  bubbleSort(arr);
+// console.log(arr);
+
+
+function swap(array, i) {
+    let temp = array[i];
+    array[i] = array[i + 1];
+    array[i + 1] = temp;
+  }
+  
+  function bubbleSort(array) {
+    let sorted = false;
+    let counter = 0;
+    while (!sorted) {
+      sorted = true;
+      for (let i = 0; i < array.length - 1 - counter; i++) {
+        if (array[i] > array[i + 1]) {
+          swap(array, i);
+          sorted = false
         }
+      }
+      counter++;
     }
-
-    return arr;
-}
-
-
-const arr = [5,9,16,3,2,7,4];
-const sortedArr =  bubbleSort(arr);
-console.log(arr);
+    return array
+  }
+  
+  let arr = [5, 2, 20, 14, 7, 9, 12];
+  console.log(bubbleSort(arr));
+  
