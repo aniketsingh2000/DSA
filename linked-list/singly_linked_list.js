@@ -53,7 +53,7 @@ class SingleLinkedList {
         } else {
             let node = new Node(data);
             let current = this.head;
-            while (current.next) {
+            while (current) {
                 current = current.next;
             }
             current.next = node;
