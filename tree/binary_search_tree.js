@@ -77,23 +77,22 @@ class BinarySearchTree {
     }
 
     _deleteNode(node, value) {
+
         if (!node) return null;
 
         if (value < node.value) {
-            node.left = this._deleteNode(node.left, value);
+            node.left = this._deleteNode(node.left, value)
         } else if (value > node.value) {
-            node.right = this._deleteNode(node.right, value);
+            node.right = this._deleteNode(node.right, value)
         } else {
-            // Node with only one child or no child
             if (!node.left) {
-                return node.right;
+                return node.right
             } else if (!node.right) {
                 return node.left;
             }
 
-            // Node with two children
             node.value = this._findMinValue(node.right);
-            node.right = this._deleteNode(node.right, node.value);
+            node.right = this._deleteNode(node.right, node.value)
         }
 
         return node;
@@ -186,9 +185,12 @@ bst.insert(4);
 bst.insert(6);
 bst.insert(9);
 
-console.log("Inorder traversal:", bst.inorderTraversal());
-console.log("Preorder traversal:", bst.preorderTraversal());
-console.log("Postorder traversal:", bst.postorderTraversal());
+bst.delete(9);
+console.log(bst.root);
 
-console.log("Tree height:", bst.getHeight());
-console.log("Is tree balanced?", bst.isBalanced());
+// console.log("Inorder traversal:", bst.inorderTraversal());
+// console.log("Preorder traversal:", bst.preorderTraversal());
+// console.log("Postorder traversal:", bst.postorderTraversal());
+
+// console.log("Tree height:", bst.getHeight());
+// console.log("Is tree balanced?", bst.isBalanced());
