@@ -253,7 +253,6 @@ class BinarySearchTree {
     levelOrderTraversal() {
         let queue = []
         let result = [];
-        let level = 0;
 
         if (!this.root) return visited;
 
@@ -277,6 +276,134 @@ class BinarySearchTree {
         return result;
     }
 
+
+    rightView() {
+        if (!this.root) return [];
+
+        let queue = [this.root];
+        let result = [];
+
+        while (queue.length > 0) {
+            let levelSize = queue.length;
+
+            for (let i = 0; i < levelSize; i++) {
+                let current = queue.shift();
+                if (i === levelSize - 1) {
+                    result.push(current.value);
+                }
+
+
+                if (current.left) queue.push(current.left);
+                if (current.right) queue.push(current.right)
+            }
+        }
+
+        return result;
+
+    }
+
+
+    leftView() {
+        if (!this.root) return [];
+
+        let queue = [this.root];
+        let result = [];
+
+        while (queue.length > 0) {
+            let levelSize = queue.length;
+
+            for (let i = 0; i < levelSize; i++) {
+                let current = queue.shift();
+
+                if (i === 0) {
+                    result.push(current.value);
+                }
+
+                if (current.left) queue.push(current.left);
+                if (current.right) queue.push(current.right);
+            }
+        }
+
+        return result;
+    }
+
+
+
+    levelOrderBottom() {
+        let queue = []
+        let result = [];
+
+        if (!this.root) return visited;
+
+        queue.push(this.root);
+
+        while (queue.length > 0) {
+
+            const levelSize = queue.length;
+            const levelValues = [];
+
+            for (let i = 0; i < levelSize; i++) {
+                let current = queue.shift();
+                levelValues.push(current.value);
+                if (current.left) queue.push(current.left);
+                if (current.right) queue.push(current.right);
+            }
+            result.unshift(levelValues);
+
+        }
+
+        return result;
+    }
+
+
+    verticalOrder() {
+        if (!this.root) return [];
+
+        let columnTable = new Map();
+        let queue = [{ node: this.root, row: 0, col: 0 }];
+
+        while (queue.length > 0) {
+            let { node, row, col } = queue.shift();
+
+            if (!columnTable.has(col)) {
+                columnTable.set(col, []);
+            }
+
+            columnTable.get(col).push({ row, val: node.value });
+
+            if (node.left) queue.push({ node: node.left, row: row + 1, col: col - 1 });
+            if (node.right) queue.push({ node: node.right, row: row + 1, col: col + 1 });
+        }
+
+        const sortedColumns = Array.from(columnTable.keys()).sort((a, b) => a - b);
+
+        const result = sortedColumns.map(col => {
+            return columnTable.get(col).sort((a, b) => a.row - b.row).map(item => item.val);
+        });
+
+        return result;
+    }
+
+
+    sumNumbers() {
+        function dfs(node, currentNumber) {
+            if (!node) return 0;
+            currentNumber = currentNumber * 10 + node.value;
+
+            if (!node.left && !node.right) {
+                return currentNumber;
+            }
+            const leftSum = dfs(node.left, currentNumber);
+            const rightSum = dfs(node.right, currentNumber);
+
+            return leftSum + rightSum;
+        }
+
+        return dfs(this.root, 0);
+    }
+
+
+
     maxDepth(root) {
         if (root === null) {
             return 0;
@@ -287,6 +414,49 @@ class BinarySearchTree {
 
         return Math.max(leftHeight, rightHeight) + 1;
     }
+
+    maxDiameter() {
+        if (this.root === null) {
+            return 0;
+        }
+
+        let maxDiameter = 0;
+        function dfs(root) {
+            if (root === null) {
+                return -1;
+            }
+            let leftHeight = dfs(root.left);
+            let rightHeight = dfs(root.right);
+            let diameter = leftHeight + rightHeight + 2;
+            maxDiameter = Math.max(maxDiameter, diameter);
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+
+        dfs(this.root)
+
+        return maxDiameter;
+    }
+
+
+    checkValidBSTtree() {
+       return this._checkValidTree(this.root, -Infinity, Infinity);
+    }
+
+    _checkValidTree(node, min, max) {
+        if (node === null) return true;
+
+        let value = node.value;
+
+        if (value <= min || value >= max) return false;
+
+        const leftBST = this._checkValidTree(node.left, min, value);
+        const rightBst = this._checkValidTree(node.right, value, max);
+
+        return leftBST && rightBst;
+    }
+
+
+
 
 
 }
@@ -306,19 +476,21 @@ const bst = new BinarySearchTree();
 // bst.insert(60);
 bst.insert(8);
 bst.insert(3);
+bst.insert(21);
 bst.insert(4);
 bst.insert(6);
 bst.insert(7);
 bst.insert(5);
 bst.insert(9);
 bst.insert(10);
-bst.insert(6);
-bst.insert(3);
+// bst.insert(6);
+// bst.insert(3);
+bst.insert(18);
 bst.insert(2);
 bst.insert(20);
 bst.insert(16);
-bst.insert(21);
-bst.insert(18);
+
+
 
 
 // const node = bst.find(27);
@@ -348,12 +520,35 @@ bst.insert(18);
 // console.log("BFS")
 // console.log(bst.bfs());
 
-console.log("levelordertravers");
-console.log(bst.levelOrderTraversal())
+
+// console.log("levelordertravers");
+// console.log(bst.levelOrderTraversal())
 
 
 // console.log(bst.pathSum(68));
 
+// console.log("right side level traersal");
+// console.log(bst.rightView());
+
+// console.log("left`' side level traersal");
+// console.log(bst.leftView());
+
+
+// console.log("bottom level traversal");
+// console.log(bst.levelOrderBottom());
+
+// console.log("vertical level traversal");
+// console.log(bst.verticalOrder())
+
+// console.log("sum of three ");
+// console.log(bst.sumNumbers());
+
+// console.log("max dimater");
+// console.log(bst.maxDiameter())
+
+
+console.log("valid BST tree check");
+console.log(bst.checkValidBSTtree());
 
 // BFS - DFS
 
