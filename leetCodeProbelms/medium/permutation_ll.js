@@ -47,5 +47,5 @@ function findPermutation(arr) {
 
 
 
-const arr = [1, 2, 3]
+const arr = [-2,1,-3,4,-1,2,1,-5,4]
 console.log(findPermutation(arr));
