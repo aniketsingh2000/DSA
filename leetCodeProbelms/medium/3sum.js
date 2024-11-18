@@ -43,23 +43,57 @@
 
 
 
-function threeSum(arr) {
+// function threeSum(arr) {
+//     let result = [];
+
+//     let checkDuplicates = [];
+
+//     for (let i = 0; i < arr.length - 2; i++) {
+//         for (let j = i + 1; j < arr.length - 1; j++) {
+//             for (let k = 0; k < arr.length; k++) {
+//                 const triplet = [arr[i], arr[j], arr[k]].sort((a, b) => a - b);
+//                 const tripletString = triplet.toString();
+//                 if (!checkDuplicates.includes(tripletString)) {
+//                     checkDuplicates.push(tripletString);
+//                     const sum = arr[i] + arr[j] + arr[k];
+//                     if (sum === 0) {
+//                         result.push([arr[i], arr[j], arr[k]])
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     return result;
+// }
+
+
+
+
+function threeSum(nums) {
+
+    nums.sort((a, b) => a - b);
+    console.log(nums);
+
     let result = [];
+    for (let i = 0; i < nums.length - 2; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
+        let left = i + 1;
+        let right = nums.length - 1;
 
-    let checkDuplicates = [];
+        while (left < right) {
 
-    for (let i = 0; i < arr.length - 2; i++) {
-        for (let j = i + 1; j < arr.length - 1; j++) {
-            for (let k = 0; k < arr.length; k++) {
-                const triplet = [arr[i], arr[j], arr[k]].sort((a, b) => a - b);
-                const tripletString = triplet.toString();
-                if (!checkDuplicates.includes(tripletString)) {
-                    checkDuplicates.push(tripletString);
-                    const sum = arr[i] + arr[j] + arr[k];
-                    if (sum === 0) {
-                        result.push([arr[i], arr[j], arr[k]])
-                    }
-                }
+            const sum = nums[i] + nums[left] + nums[right];
+
+            if (sum === 0) {
+                result.push([nums[i], nums[left], nums[right]]);
+                while (left < right && nums[left] === nums[left + 1]) left++;
+                while (left < right && nums[right] === nums[left - 1]) right++;
+                left++;
+                right++;
+            } else if (sum < 0) {
+                left++
+            } else {
+                right--;
             }
         }
     }
